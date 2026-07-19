@@ -6,7 +6,7 @@ uniform vec2 r,m; uniform float t;
 float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+1.),f.x),f.y);}
 float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*noise(p);p=p*2.03+17.1;a*=.5;}return v;}
-void main(){vec2 uv=(gl_FragCoord.xy-.5*r)/min(r.x,r.y);vec2 mouse=(m-.5*r)/min(r.x,r.y);float d=length(uv-mouse);vec2 q=vec2(fbm(uv*1.15+t*.035),fbm(uv*1.15+vec2(4.2,1.7)-t*.028));vec2 w=uv+.52*(q-.5);float f=fbm(w*2.2+vec2(t*.025,-t*.018));float ribbon=smoothstep(.24,.0,abs(uv.y+.18*sin(uv.x*2.5+t*.12)+.26*(f-.5)));float pointer=exp(-d*3.8);vec3 ink=vec3(.005,.008,.009);vec3 algo=vec3(.64,1.,.10);vec3 ice=vec3(.16,.88,.58);vec3 col=ink+algo*(.055*f+.11*ribbon)+ice*(.045*q.x);col+=algo*pointer*.045;float grain=(hash(gl_FragCoord.xy+floor(t*10.))-.5)*.018;gl_FragColor=vec4(col+grain,1.);}`
+void main(){vec2 uv=(gl_FragCoord.xy-.5*r)/min(r.x,r.y);vec2 mouse=(m-.5*r)/min(r.x,r.y);float d=length(uv-mouse);vec2 q=vec2(fbm(uv*1.15+t*.035),fbm(uv*1.15+vec2(4.2,1.7)-t*.028));vec2 w=uv+.52*(q-.5);float f=fbm(w*2.2+vec2(t*.025,-t*.018));float ribbon=smoothstep(.24,.0,abs(uv.y+.18*sin(uv.x*2.5+t*.12)+.26*(f-.5)));float pointer=exp(-d*3.8);vec3 ink=vec3(.005,.008,.009);vec3 algo=vec3(.34,.31,.62);vec3 ice=vec3(.39,.84,.82);vec3 col=ink+algo*(.055*f+.11*ribbon)+ice*(.045*q.x);col+=algo*pointer*.045;float grain=(hash(gl_FragCoord.xy+floor(t*10.))-.5)*.018;gl_FragColor=vec4(col+grain,1.);}`
 
 export function FluidField() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
