@@ -4,7 +4,7 @@ import App from './App'
 
 afterEach(() => vi.restoreAllMocks())
 
-describe('Signal402 dashboard', () => {
+describe('Lattice402 dashboard', () => {
   it('explains the product and labels demo payment state', () => {
     render(<App />)
     expect(screen.getByText('Intelligence agents can buy one request at a time.')).toBeInTheDocument()

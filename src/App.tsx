@@ -1,5 +1,6 @@
-import { type FormEvent, useState } from 'react'
+import { type FormEvent, useEffect, useState } from 'react'
 import type { SignalPacket } from './domain/types'
+import { FluidField } from './components/FluidField'
 import './App.css'
 
 const seeded: SignalPacket = {
@@ -16,7 +17,7 @@ const seeded: SignalPacket = {
   pricing: { amount: '$0.10', asset: 'USDC', network: 'Algorand Mainnet' }, payment: { status: 'preview', transaction: null },
 }
 
-const Flower = () => <svg className="flower" viewBox="0 0 64 64" aria-hidden="true"><g fill="currentColor" stroke="#171713" strokeWidth="2"><circle cx="32" cy="11" r="9"/><circle cx="51" cy="22" r="9"/><circle cx="47" cy="44" r="9"/><circle cx="17" cy="44" r="9"/><circle cx="13" cy="22" r="9"/></g><circle cx="32" cy="31" r="13" fill="#fff8dc" stroke="#171713" strokeWidth="2"/><path d="M25 29h2m10 0h2M25 35c4 4 10 4 14 0" fill="none" stroke="#171713" strokeWidth="2" strokeLinecap="round"/></svg>
+const Flower = () => <svg className="flower" viewBox="0 0 48 48" aria-hidden="true"><path d="M9 39 24 7h8L20 39h-6l7-15h13l3 7H18" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinejoin="round" strokeLinecap="round"/><path d="M29 7h8L24 39h-7" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinejoin="round"/></svg>
 
 function App() {
   const [subject, setSubject] = useState('Algorand agentic commerce')
@@ -24,6 +25,20 @@ function App() {
   const [freshness, setFreshness] = useState('24h')
   const [packet, setPacket] = useState(seeded)
   const [status, setStatus] = useState<'idle'|'loading'|'error'>('idle')
+
+  useEffect(() => {
+    const nodes = document.querySelectorAll('main > section')
+    nodes.forEach(node => node.classList.add('scroll-reveal'))
+    if (typeof IntersectionObserver === 'undefined') {
+      nodes.forEach(node => node.classList.add('is-visible'))
+      return
+    }
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target) }
+    }), { threshold: 0.12 })
+    nodes.forEach(node => observer.observe(node))
+    return () => observer.disconnect()
+  }, [])
 
   async function runPreview(event: FormEvent) {
     event.preventDefault(); setStatus('loading')
@@ -35,8 +50,10 @@ function App() {
   }
 
   return <div className="app-shell">
+    <FluidField />
+    <div className="ambient-grid" aria-hidden="true" />
     <header className="topbar">
-      <a className="brand" href="#top" aria-label="Signal402 home"><Flower/><span>signal<span className="brand-402">402</span></span></a>
+      <a className="brand" href="#top" aria-label="Lattice402 home"><Flower/><span>lattice<span className="brand-402">402</span></span></a>
       <nav aria-label="Primary"><a href="#playground">Playground</a><a href="#evidence">Evidence</a><a href="#developers">Developers</a></nav>
       <div className="network"><span className="pulse"/> Algorand Mainnet <b>preview</b></div>
     </header>
@@ -82,7 +99,7 @@ function App() {
 
       <section className="transactions"><div className="section-title"><div><span className="kicker">03 / SETTLEMENTS</span><h2>Proof, not theatre.</h2></div><span className="empty-badge">0 MAINNET TRANSACTIONS</span></div><div className="empty-state"><Flower/><div><strong>No settlements yet.</strong><p>Preview packets are intentionally excluded. Connect a merchant address and verified x402 middleware before Mainnet activity appears here.</p></div><a href="https://facilitator.goplausible.xyz/dashboard" target="_blank" rel="noreferrer">Open facilitator ↗</a></div></section>
     </main>
-    <footer className="footer"><a className="brand" href="#top"><Flower/>signal402</a><p>Machine-native intelligence, settled on Algorand.</p><span>Built for the Algorand x402 Hackathon · 2026</span></footer>
+    <footer className="footer"><a className="brand" href="#top"><Flower/>lattice402</a><p>Machine-native intelligence, settled on Algorand.</p><span>Built for the Algorand x402 Hackathon · 2026</span></footer>
   </div>
 }
 

@@ -1,8 +1,8 @@
-# Signal402
+# Lattice402
 
 > Intelligence agents can buy one request at a time.
 
-Signal402 is a pay-per-signal intelligence API for AI agents and crypto creators. It packages research as structured claims with sources, confidence, material changes, creator angles and a deterministic provenance hash. The production payment route is designed for x402 exact-scheme USDC settlement on Algorand Mainnet through the GoPlausible facilitator.
+Lattice402 is a pay-per-signal intelligence API for AI agents and crypto creators. It packages research as structured claims with sources, confidence, material changes, creator angles and a deterministic provenance hash. The production payment route is designed for x402 exact-scheme USDC settlement on Algorand Mainnet through the GoPlausible facilitator.
 
 ## Current status
 

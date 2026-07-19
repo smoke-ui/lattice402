@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { createApp } from './app'
 
-describe('Signal402 API', () => {
+describe('Lattice402 API', () => {
   const app = createApp({ avmAddress: '' })
 
   it('reports truthful readiness and network configuration', async () => {
