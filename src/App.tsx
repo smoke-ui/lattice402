@@ -19,6 +19,13 @@ const seeded: SignalPacket = {
 
 const Flower = () => <svg className="flower" viewBox="0 0 48 48" aria-hidden="true"><path d="M9 39 24 7h8L20 39h-6l7-15h13l3 7H18" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinejoin="round" strokeLinecap="round"/><path d="M29 7h8L24 39h-7" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinejoin="round"/></svg>
 
+const LatticeGlyph = () => <svg className="lattice-glyph" viewBox="0 0 420 420" aria-hidden="true">
+  <defs><linearGradient id="wire" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#a7eee6"/><stop offset=".5" stopColor="#8e84c6"/><stop offset="1" stopColor="#ccd4f5"/></linearGradient></defs>
+  <g className="orbit-rings" fill="none" stroke="url(#wire)"><ellipse cx="210" cy="210" rx="182" ry="74"/><ellipse cx="210" cy="210" rx="182" ry="74" transform="rotate(60 210 210)"/><ellipse cx="210" cy="210" rx="182" ry="74" transform="rotate(120 210 210)"/></g>
+  <g className="lattice-lines" stroke="url(#wire)"><path d="M82 84 339 122 301 341 66 284 82 84 301 341M339 122 66 284"/><path d="M210 28 338 296 115 352 82 84 210 28 115 352"/></g>
+  {[[82,84],[339,122],[301,341],[66,284],[210,28],[338,296],[115,352],[210,210]].map(([cx,cy],i)=><circle key={i} cx={cx} cy={cy} r={i===7?8:4} className={`node node-${i}`}/>) }
+</svg>
+
 function App() {
   const [subject, setSubject] = useState('Algorand agentic commerce')
   const [intent, setIntent] = useState('creator-brief')
@@ -63,7 +70,7 @@ function App() {
         <div className="eyebrow"><span>PAY-PER-SIGNAL INTELLIGENCE</span><span className="mini-pill">x402 native</span></div>
         <div className="hero-grid">
           <div><h1><span className="sr-only">Intelligence agents can buy one request at a time.</span><span aria-hidden="true">Intelligence agents can buy <em>one request</em> at a time.</span></h1><p className="hero-copy">Evidence-backed research packets with sources, confidence and provenance. No account. No API key. Just USDC on Algorand.</p><div className="hero-actions"><a className="button primary" href="#playground">Run a signal preview <span>↘</span></a><a className="button secondary" href="#developers">Read the API <span>→</span></a></div></div>
-          <div className="flow-card" aria-label="x402 payment flow"><div className="flow-head"><span>LIVE PAYMENT PATH</span><span className="demo-dot">DEMO MODE</span></div>{[['01','Request','Agent asks a question'],['02','402','Server quotes $0.10'],['03','USDC','GoPlausible settles'],['04','Signal','Evidence packet unlocks']].map((item,i)=><div className="flow-step" key={item[0]}><span className="step-number">{item[0]}</span><strong>{item[1]}</strong><small>{item[2]}</small>{i<3&&<span className="connector">↓</span>}</div>)}</div>
+          <div className="lattice-stage"><LatticeGlyph/><div className="core-label"><span>LAT / 00</span><b>STRUCTURED INTELLIGENCE</b></div><div className="flow-card" aria-label="x402 payment flow"><div className="flow-head"><span>LIVE PAYMENT PATH</span><span className="demo-dot">DEMO MODE</span></div>{[['01','Request','Agent asks a question'],['02','402','Server quotes $0.10'],['03','USDC','GoPlausible settles'],['04','Signal','Evidence packet unlocks']].map((item,i)=><div className="flow-step" key={item[0]}><span className="step-number">{item[0]}</span><strong>{item[1]}</strong><small>{item[2]}</small>{i<3&&<span className="connector">↓</span>}</div>)}</div></div>
         </div>
       </section>
 
