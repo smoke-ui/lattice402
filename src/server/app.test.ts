@@ -14,6 +14,20 @@ describe('Signal402 API', () => {
     expect(await config.json()).toMatchObject({ scheme: 'exact', asset: { symbol: 'USDC', id: 31566704 }, paymentReady: false })
   })
 
+  it('does not claim payment readiness when only a merchant address exists', async () => {
+    const configuredAddress = createApp({ avmAddress: 'A'.repeat(58) })
+    const health = await configuredAddress.request('/api/health')
+    expect(await health.json()).toMatchObject({ mode: 'demo', paymentReady: false, merchantConfigured: true })
+  })
+
+  it('maps malformed JSON to a stable client error', async () => {
+    const response = await app.request('/api/signals/preview', {
+      method: 'POST', headers: { 'content-type': 'application/json' }, body: '{broken',
+    })
+    expect(response.status).toBe(400)
+    expect(await response.json()).toMatchObject({ code: 'INVALID_REQUEST' })
+  })
+
   it('returns an evidence-backed preview', async () => {
     const response = await app.request('/api/signals/preview', {
       method: 'POST', headers: { 'content-type': 'application/json' },

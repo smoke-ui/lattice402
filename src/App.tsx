@@ -66,7 +66,7 @@ function App() {
           <article className="result-card card" id="evidence">
             <div className="card-label"><span>SIGNAL PACKET</span><span className="hash">{packet.provenance.responseHash}</span></div><h3>{packet.subject}</h3><p className="summary">{packet.summary}</p>
             <div className="signal-list">{packet.signals.map((signal,index)=><div className="signal" key={signal.claim}><div className="signal-index">0{index+1}</div><div className="signal-body"><p>{signal.claim}</p><div className="confidence"><span style={{width:`${signal.confidence*100}%`}}/><small>{Math.round(signal.confidence*100)}% confidence</small></div><div className="sources">{signal.sources.map(source=><a key={source.url} href={source.url} target="_blank" rel="noreferrer">↗ {source.title}</a>)}</div></div></div>)}</div>
-            <footer className="packet-footer"><span>{packet.provenance.sourceCount} verified sources</span><span>Payment: <b>preview · not settled</b></span></footer>
+            <footer className="packet-footer"><span>{packet.provenance.sourceCount} cited sources</span><span>Payment: <b>preview · not settled</b></span></footer>
           </article>
         </div>
       </section>
